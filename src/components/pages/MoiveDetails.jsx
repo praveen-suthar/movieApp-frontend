@@ -52,7 +52,7 @@ const MoiveDetails = () => {
       <h4>{ENGLISHTEXT.MOVIEDETAILS.CASTING}: {movieDetails.cast} </h4>
       <h4>{ENGLISHTEXT.MOVIEDETAILS.DIRECTOR}: {movieDetails.director} </h4>
       <h4>{ENGLISHTEXT.MOVIEDETAILS.PRODUCER}: {movieDetails.producer} </h4>
-      <Link to={movieDetails.trailor} target="_blank" > <button type="button" className="btn btn-secondary">{ENGLISHTEXT.BUTTON.WATCH_TRAILER}</button></Link>
+      <Link to={movieDetails.trailer} target="_blank" > <button type="button" className="btn btn-secondary">{ENGLISHTEXT.BUTTON.WATCH_TRAILER}</button></Link>
       </div>
     </div>
       </div>
