@@ -2,6 +2,7 @@ import React,{ useState, useEffect }  from "react";
 import NavBar from "../pages/NavBar";
 import Card from "./MovieCard";
 import axios from "axios";
+import { apiURL } from "../common/englishText";
 
 const Home = () => {
   const [results, setResults] = useState([]);
@@ -11,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get('https://movieapplication-fmdi.onrender.com/users')
+      .get(apiURL)
       .then((response) => {
         setSortingData(response.data);
         setSortedData(response.data);
@@ -31,17 +32,14 @@ const Home = () => {
     setIsAscending(false);
   };
 
-  // console.log("without-sorted-data",sortingData)
-  // console.log("sorted-data", sortedData)
-
   return (
     <>
-     <NavBar 
-     setResults={setResults}
-     sortAscending={sortAscending}
-     sortDescending={sortDescending}
-     />
-     {results && <Card results={results} sortedData={sortedData} />}
+    <NavBar 
+      setResults={setResults}
+      sortAscending={sortAscending}
+      sortDescending={sortDescending}
+      />
+     {results && <Card results={results} sortedData={sortedData}/>}
     </>
   );
 };

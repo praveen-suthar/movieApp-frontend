@@ -1,49 +1,57 @@
+import { useState } from "react";
 import axios from "axios";
-import "../../assets/home.css";
+import "../../assets/style/confirmationModel.css";
+import ConfirmationModel from "./ConfirmationModel";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { TbListDetails } from "react-icons/tb";
 import { Link, useNavigate } from "react-router-dom";
-
+import { apiURL } from "../common/englishText";
 const Card = ({ results, sortedData }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
+
   const navigate = useNavigate();
   const renderedList = results.length > 0 ? results : sortedData;
 
-  // Function for delete
-  const deleteMovie = (id) => {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this moive"
-    );
-    if (confirm) {
-      axios.delete(`https://movieapplication-fmdi.onrender.com/users/${id}`).then(() => {
-        window.location.reload();
-        navigate("/");
-      });
-    }
+  const openModal = (id) => {
+    setSelectedMovieId(id);
+    setIsModalOpen(true);
   };
 
-  //console.log("isFilter", results);
+  const closeModal = () => {
+    setSelectedMovieId(null);
+    setIsModalOpen(false);
+  };
+
+  const confirmDelete = () => {
+    axios.delete(`${apiURL}${selectedMovieId}`).then(() => {
+      window.location.reload();
+      navigate("/");
+    });
+    closeModal();
+  };
 
   return (
     <div>
-      <div className="container">
-        <div className="row gy-5 mt-5">
+      <div className="container card-imp">
+        <div className="row g-3">
           {renderedList.map((item, index) => {
             return (
-              <div className="col-3" key={index}>
-                <div className="card card-box">
-                  <img
-                    src={item.image}
-                    className="card-img-top"
-                    alt="Imageposter"
-                  />
-                  <div className="card-body text-dark">
-                    <h5 className="card-title text-center">{item.title}</h5>
+              <div className="col-12 col-md-6 col-lg-3" key={index}>
+                <div className="card h-100 d-flex flex-column">
+                  <div className="card-body d-flex flex-column justify-content-between">
+                    <img
+                      src={item.image}
+                      className="card-img-top align-self-center mb-3"
+                      alt="Image poster"
+                    />
+                    <h5 className="card-title text-center text-dark">{item.title}</h5>
                   </div>
                   <div className="card-footer d-flex justify-content-between align-items-center">
                     <span>
                       <RiDeleteBinLine
-                        onClick={() => deleteMovie(item.id)}
+                        onClick={() => openModal(item.id)}
                         className="text-dark"
                       />
                     </span>
@@ -55,13 +63,15 @@ const Card = ({ results, sortedData }) => {
                     </Link>
                   </div>
                 </div>
-              </div>           
+              </div>
             );
           })}
         </div>
       </div>
+      {isModalOpen && (
+        <ConfirmationModel onCancel={closeModal} onConfirm={confirmDelete} />
+      )}
     </div>
   );
 };
-
 export default Card;

@@ -6,7 +6,7 @@ import { AiOutlineSortAscending } from "react-icons/ai";
 import { AiOutlineSortDescending } from "react-icons/ai";
 import axios from "axios";
 import { ThemeContext } from "../context/ThemeContext";
-import {ENGLISHTEXT} from '../common/englishText.js'
+import {ENGLISHTEXT, apiURL} from '../common/englishText.js'
 
 const NavBar = ({ setResults, sortDescending, sortAscending }) => {
   const { theme, handleOnClick } = useContext(ThemeContext);
@@ -14,7 +14,7 @@ const NavBar = ({ setResults, sortDescending, sortAscending }) => {
 
   // Search functionality 
   const fetchData = (value) => {
-    axios.get("https://movieapplication-fmdi.onrender.com/users").then((response) => {
+    axios.get(apiURL).then((response) => {
       const json = response.data;
       const results = json.filter((user) => {
         return (
@@ -32,7 +32,6 @@ const NavBar = ({ setResults, sortDescending, sortAscending }) => {
     setInput(value);
     fetchData(value);
   };
-//console.log({theme});
 
   return (
     <div>

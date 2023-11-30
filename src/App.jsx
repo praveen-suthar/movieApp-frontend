@@ -8,11 +8,9 @@ import UpdateMoive from "./components/pages/UpdateMoive";
 import {ThemeContext, themes} from './components/context/ThemeContext.js'
 
 function App() {
-   
+  
   const [theme, setTheme] = useState(themes.light);
   const handleOnClick=()=> theme === themes.light ? setTheme(themes.dark) : setTheme(themes.light);
-  
-  //console.log({theme});
   
   const body = document.body;
   useEffect(() => {

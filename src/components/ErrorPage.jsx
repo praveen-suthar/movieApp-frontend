@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "./pages/NavBar";
+import { ENGLISHTEXT } from "./common/englishText";
 
 const ErrorPage = () => {
   return (
@@ -7,12 +8,11 @@ const ErrorPage = () => {
     <NavBar/>
     <div className="position-absolute bottom-50 end-50">
       <h3>
-        Oops!!
+        Oops!!{ENGLISHTEXT.ERROR_MESSAGE.OOPS}
       </h3>
-      <p>Sorry, Page not found.</p>
+      <p>{ENGLISHTEXT.ERROR_MESSAGE.NOT_FOUND}</p>
     </div>
     </>
-    
   );
 };
 
